@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - NPC_Trigger
+  - Interactable
   layers:
   - Default
   - TransparentFX
