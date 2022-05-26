@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public AudioPool MusicPool;
-    public AudioPool SoundPool;
+    public SoundsManager MusicPool;
+    public SoundsManager SoundPool;
 
     [Header("Audio Clip Referencing")]
     public AudioClip ButtonDownSound;

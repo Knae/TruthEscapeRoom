@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AudioPool : MonoBehaviour
+public class SoundsManager : MonoBehaviour
 {
     public string AudioName;
     public bool SkipToNearEnd;
