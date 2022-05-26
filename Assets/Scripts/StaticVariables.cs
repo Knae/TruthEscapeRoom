@@ -5,22 +5,19 @@ using UnityEngine;
 public class StaticVariables : MonoBehaviour
 {
     [Header("Game Variables")]
-    [SerializeField]static public int iDay = 1;
+    [SerializeField] static public int iDay = 1;
+	[SerializeField] static public bool bHasBathed = false;
+	[SerializeField] static public bool bHadBreakfast = false;
 
-    // Start is called before the first frame update
-    void Start()
-	{
-
-    }
-
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
 
 	private void Awake()
 	{
         DontDestroyOnLoad(transform.gameObject);
+	}
+
+	public void NextDay()
+	{
+		bHasBathed = false;
+		bHadBreakfast = false;
 	}
 }

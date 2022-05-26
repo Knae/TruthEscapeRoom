@@ -7,6 +7,6 @@ public class BedPrototype : Interactable
 	public override void Interaction()
 	{
 		//base.Interaction();
-		Debug.Log("Player activated bed");
+		Debug.Log("Player activated bed on day " + StaticVariables.iDay);
 	}
 }

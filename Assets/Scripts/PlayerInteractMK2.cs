@@ -38,27 +38,33 @@ public class PlayerInteractMK2 : MonoBehaviour
             TextDisplay.SetActive(true); // Turn on UI
             //}
         }
-        else if( other.gameObject.GetComponent<Interactable>() !=null )
-		{
+    }
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+        if (collision.gameObject.GetComponent<Interactable>() != null)
+        {
             bDisplayE = true;
-            rNearbyInteractables = other.gameObject.GetComponent<Interactable>();
+            rNearbyInteractables = collision.gameObject.GetComponent<Interactable>();
             rNearbyInteractables.DisplayEPrompt();
         }
     }
 
-    void OnTriggerExit2D(Collider2D other) // turn off
+	void OnTriggerExit2D(Collider2D other) // turn off
     {
         if (other.gameObject.tag == "NPC_Trigger")
         {
             TextDisplay.SetActive(false); // Turn off UI
         }
-        else if (other.gameObject.GetComponent<Interactable>() != null)
+    }
+
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+        if (collision.gameObject.GetComponent<Interactable>() != null)
         {
             bDisplayE = false;
             rNearbyInteractables.HidePrompt();
             rNearbyInteractables = null;
         }
     }
-
-
 }
