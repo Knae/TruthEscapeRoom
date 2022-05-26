@@ -6,23 +6,30 @@ public class PlayerInteractMK2 : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] public GameObject TextDisplay;
+    [SerializeField] public GameObject GameDataPrefab;
 
     [Header("Debug")]
-    [SerializeField] private bool bDisplayE = false;
     [SerializeField] private Interactable rNearbyInteractables = null;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //If the GameData object containing the static variables
+        //does not, then instantiate one
+        if (GameObject.Find ("GameData") != null)
+		{
+            Instantiate(GameDataPrefab);
+		}
     }
 
     // Update is called once per frame
+    //If the player has already collided with
+    //an interactable called to , then keep checking
     void Update()
     {
-        if(bDisplayE == true)
+        if(rNearbyInteractables != null)
 		{
-            if (Input.GetKeyDown(KeyCode.E) && rNearbyInteractables!=null)
+            if (Input.GetKeyDown(KeyCode.E) && rNearbyInteractables.GetIfPromptDisplayed())
 			{
                 rNearbyInteractables.Interaction();
             }
@@ -44,7 +51,6 @@ public class PlayerInteractMK2 : MonoBehaviour
 	{
         if (collision.gameObject.GetComponent<Interactable>() != null)
         {
-            bDisplayE = true;
             rNearbyInteractables = collision.gameObject.GetComponent<Interactable>();
             rNearbyInteractables.DisplayEPrompt();
         }
@@ -62,7 +68,6 @@ public class PlayerInteractMK2 : MonoBehaviour
 	{
         if (collision.gameObject.GetComponent<Interactable>() != null)
         {
-            bDisplayE = false;
             rNearbyInteractables.HidePrompt();
             rNearbyInteractables = null;
         }

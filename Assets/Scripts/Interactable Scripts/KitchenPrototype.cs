@@ -10,7 +10,8 @@ public class KitchenPrototype : Interactable
 		if (!StaticVariables.bHadBreakfast)
 		{
 			Debug.Log("Player activated kitchen on day " + StaticVariables.iDay);
-			StaticVariables.bHadBreakfast = true; 
+			StaticVariables.bHadBreakfast = true;
+			HidePrompt();
 		}
 	}
 

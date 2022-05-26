@@ -10,14 +10,15 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bHadBreakfast = false;
 
 
-	private void Awake()
+	private void Start()
 	{
         DontDestroyOnLoad(transform.gameObject);
 	}
 
-	public void NextDay()
+	static public void NextDay()
 	{
 		bHasBathed = false;
 		bHadBreakfast = false;
+		iDay++;
 	}
 }

@@ -18,6 +18,8 @@ public class Interactable : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		//If this object is tagged as interactable, then calculate its size
+		//and the position where the prompt should appear
 		if(gameObject.tag == "Interactable")
 		{
 			BoxCollider2D collider = this.GetComponent<BoxCollider2D>();
@@ -29,11 +31,19 @@ public class Interactable : MonoBehaviour
 		}	 
 	}
 
+	/// <summary>
+	/// This should contain whatever actions or events to be executed when
+	/// player interacts with object containing this script
+	/// </summary>
 	public virtual void Interaction()
 	{
 		Debug.Log("ERROR:Called parent interaction function. Object may not have a reaction to player.");
 	}
 
+	/// <summary>
+	/// Instantiate(create) the prompt prefab at the previously
+	/// calculated position
+	/// </summary>
 	public virtual void DisplayEPrompt()
 	{
 		Debug.Log("Press 'E'");
@@ -43,11 +53,19 @@ public class Interactable : MonoBehaviour
 		bDisplayedPrompt = true;
 	}
 
+	/// <summary>
+	/// Destroy the previously instantiated
+	/// </summary>
 	public virtual void HidePrompt()
 	{
 		Debug.Log("Dont' Press 'E'");
 		Destroy(Prompt);
 		Prompt = null;
 		bDisplayedPrompt = false;
+	}
+
+	public bool GetIfPromptDisplayed()
+	{
+		return bDisplayedPrompt;
 	}
 }

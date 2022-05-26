@@ -11,8 +11,8 @@ public class BathPrototype : Interactable
 		{
 			Debug.Log("Player activated bath on day " + StaticVariables.iDay);
 			StaticVariables.bHasBathed = true;
+			HidePrompt();
 		}
-
 	}
 
 	public override void DisplayEPrompt()
