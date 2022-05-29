@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // For accessing UI
 
 public class StaticVariables : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class StaticVariables : MonoBehaviour
     [SerializeField] static public int iDay = 1;
 	[SerializeField] static public bool bHasBathed = false;
 	[SerializeField] static public bool bHadBreakfast = false;
-
 
 	private void Start()
 	{
