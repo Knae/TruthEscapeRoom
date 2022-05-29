@@ -22,7 +22,7 @@ public class FadeFromBlack : MonoBehaviour
         fadeObject = gameObject;
         objectColor = fadeObject.GetComponent<SpriteRenderer>().color;
 
-        
+        UI_textDay.text = "Day " + StaticVariables.iDay;
     }
 
     void Update()
