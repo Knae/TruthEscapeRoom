@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 5ffa323862ded4942b6ce76de189a932
   - enabled: 1
-    path: Assets/Scenes/SingTest.unity
+    path: Assets/Scenes/PlayerRoom.unity
     guid: cbe1934885de7744c886bde5381b03cd
   - enabled: 1
-    path: Assets/Scenes/HallwayPrototypeScene.unity
+    path: Assets/Scenes/PlayerRoom.unity
     guid: 9cef473cf401acf4ab86fea0140e0c13
   m_configObjects: {}

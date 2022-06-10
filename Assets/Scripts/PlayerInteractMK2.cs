@@ -66,7 +66,7 @@ public class PlayerInteractMK2 : MonoBehaviour
 
 	private void OnCollisionExit2D(Collision2D collision)
 	{
-        if (collision.gameObject.GetComponent<Interactable>() != null)
+        if (collision.gameObject.GetComponent<Interactable>() != null && rNearbyInteractables!=null)
         {
             rNearbyInteractables.HidePrompt();
             rNearbyInteractables = null;

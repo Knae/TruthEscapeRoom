@@ -9,6 +9,8 @@ public class StaticVariables : MonoBehaviour
     [SerializeField] static public int iDay = 1;
 	[SerializeField] static public bool bHasBathed = false;
 	[SerializeField] static public bool bHadBreakfast = false;
+	[SerializeField] static public bool bMadeBed = false;
+	[SerializeField] static public bool bAlarmOff = false;
 
 	private void Start()
 	{
@@ -19,6 +21,8 @@ public class StaticVariables : MonoBehaviour
 	{
 		bHasBathed = false;
 		bHadBreakfast = false;
+		bMadeBed = false;
+		bAlarmOff = false;
 		iDay++;
 	}
 }

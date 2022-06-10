@@ -23,8 +23,15 @@ public class Interactable : MonoBehaviour
 		if(gameObject.tag == "Interactable")
 		{
 			BoxCollider2D collider = this.GetComponent<BoxCollider2D>();
-			v2Size = collider.size;
-			v3Pos = collider.transform.position;
+			if(collider != null)
+			{
+				v2Size = collider.size;
+				v3Pos = collider.transform.position;
+			}
+			else
+			{
+				Debug.Log("ERROR:Interactable named \"" + this.name + "has no collision.");
+			}
 
 			//Move position of EPrompt to be above the object
 			v3Pos.y += (v2Size.y / 2) + 0.2f;
