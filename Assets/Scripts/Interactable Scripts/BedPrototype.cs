@@ -28,7 +28,7 @@ public class BedPrototype : Interactable
 
 	public override void DisplayEPrompt()
 	{
-		if ((!StaticVariables.bMadeBed && StaticVariables.bAlarmOff))
+		if ( !StaticVariables.bMadeBed && StaticVariables.bAlarmOff)
 		{
 			base.DisplayEPrompt();
 		}

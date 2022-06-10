@@ -49,10 +49,17 @@ public class PlayerInteractMK2 : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-        if (collision.gameObject.GetComponent<Interactable>() != null)
+        if (collision.gameObject.CompareTag("Interactable"))
         {
-            rNearbyInteractables = collision.gameObject.GetComponent<Interactable>();
-            rNearbyInteractables.DisplayEPrompt();
+            if (collision.gameObject.GetComponent<Interactable>() != null)
+            {
+                rNearbyInteractables = collision.gameObject.GetComponent<Interactable>();
+                rNearbyInteractables.DisplayEPrompt();
+            }
+            else
+			{
+                Debug.LogWarning("Object tagged as interactable but does not have a interactable script");
+			}
         }
     }
 

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayerRoom.unity
     guid: cbe1934885de7744c886bde5381b03cd
   - enabled: 1
-    path: Assets/Scenes/PlayerRoom.unity
+    path: Assets/Scenes/HallwayPrototypeScene.unity
     guid: 9cef473cf401acf4ab86fea0140e0c13
   m_configObjects: {}
