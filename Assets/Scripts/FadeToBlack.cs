@@ -36,7 +36,7 @@ public class FadeToBlack : MonoBehaviour
 
             if (fadeObject.GetComponent<SpriteRenderer>().color.a >= 1)
             {
-                SceneManager.LoadScene("SingTest");
+                SceneManager.LoadScene("PlayerRoom");
             }
         }
 
