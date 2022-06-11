@@ -11,6 +11,7 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bHadBreakfast = false;
 	[SerializeField] static public bool bMadeBed = false;
 	[SerializeField] static public bool bAlarmOff = false;
+	[SerializeField] static public bool bComputerOn = false;
 
 	private void Start()
 	{
