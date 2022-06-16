@@ -20,10 +20,15 @@ public class StaticVariables : MonoBehaviour
 
 	static public void NextDay()
 	{
-		bHasBathed = false;
+		//bHasBathed = false;
 		bHadBreakfast = false;
 		bMadeBed = false;
 		bAlarmOff = false;
 		iDay++;
+	}
+
+	static public bool bReadyForWork()
+	{
+		return bHadBreakfast&&bMadeBed&&bAlarmOff;
 	}
 }

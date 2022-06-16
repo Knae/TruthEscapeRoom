@@ -8,7 +8,7 @@ public class RoomDoorPrototype : Interactable
 	public override void Interaction()
 	{
         //base.Interaction();
-		if(StaticVariables.bHadBreakfast && StaticVariables.bHasBathed)
+		if(StaticVariables.bReadyForWork())
 		{
 			Debug.Log("Moving to next scene");
 			SceneManager.LoadScene("HallwayPrototypeScene",LoadSceneMode.Single);
