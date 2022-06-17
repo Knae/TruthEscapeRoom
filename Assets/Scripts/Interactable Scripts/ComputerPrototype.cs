@@ -17,8 +17,6 @@ public class ComputerPrototype : Interactable
 			HidePrompt();
 			ComputerLight.SetActive(true);
 		}
-		
-
 	}
 
 	public override void DisplayEPrompt()

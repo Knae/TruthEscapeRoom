@@ -22,7 +22,6 @@ public class StaticVariables : MonoBehaviour
 
 	static public void NextDay()
 	{
-		//bHasBathed = false;
 		bHadBreakfast = false;
 		bMadeBed = false;
 		bAlarmOff = false;
