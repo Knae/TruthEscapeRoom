@@ -1,1 +1,1 @@
-hello | sup | yo | whats up
+yo|this is day 1|greetings

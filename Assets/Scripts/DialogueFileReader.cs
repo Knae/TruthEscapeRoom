@@ -9,12 +9,16 @@ using System.Text;
 //includes for dialogue text ui
 using UnityEngine.UI;
 
+//for array stuff
+using System;
+
 public class DialogueFileReader : MonoBehaviour {
     //to change dialogue create or modify .txt files in Assets/DialogueTextFiles making sure the file name matches in ReadFullDayDialogue parameters
     //to use connect a UI Text object to the script for the dialogue to write to
 
     //UI text to modify
-    public Text neighbourDialogueText;
+    public Text targetText;
+    public GameObject textDisplayBox;
 
     //stores full string from file and the 'cut-up' string array of dialogue sections
     string currentDialogue;
@@ -32,14 +36,113 @@ public class DialogueFileReader : MonoBehaviour {
 
     float skipDialogueTimer = 0;
 
+    //variables to dictate dialogue shake
+    public float shakeSpeed = 100.0f;
+    public float shakeAmount = 1.0f;
+    bool shake = false;
+    Vector2 originalTextDisplayBoxPos;
+
+    //timer for automatic text
+    float autoTimer = 0;
+    //timer for automatic text delay time between text
+    public float autoDelayTime;
+
+    //whether the dialogue is controlled by the player or not
+    public bool playerControlled;
+
+    //if the dialogue is from the neighbour or not
+    public bool isNeighbourDialouge;
+
+    //filename for any other dialogue if not neighbour dialogue
+    public string dialogueFileName;
+
+    //if dialogue should loop or not (if automated)
+    public bool loops;
+
+    //used to stop dialogue
+    public bool stopDialogue = false;
+
+
+    //change text object for dialogue/text to be written to
+    public void SetTextObj(ref Text newText) { targetText = newText; }
+
+
+    //---//---//---//
 
     void Start() {
-        string day = StaticVariables.iDay.ToString();
-        string fileName = "dialogueDay" + day + ".txt"; //create filename of text matching current day
+        textDisplayBox.SetActive(true);
+
+        if (isNeighbourDialouge) { //if neighbour dialogue automate file loading according to day
+            string day = StaticVariables.iDay.ToString();
+            string fileName = "dialogueDay" + day + ".txt"; //create filename of text matching current day
+
+            InitialiseDialogue(fileName);
+        }
+        else {
+            InitialiseDialogue(dialogueFileName);
+        }
+
+        //stores the original position of the text box to reset after shaking
+        originalTextDisplayBoxPos = textDisplayBox.transform.position;
+    }
+
+    void Update() {
+        if (!stopDialogue) {
+            if (playerControlled) {
+                PlayerInputTextUpdate();
+            }
+            else {
+                AutoTextUpdate(autoDelayTime);
+            }
+        }
+        else {
+            //clear text
+            targetText.text = "";
+            textDisplayBox.SetActive(false);
+        }
+    }
+
+    //---//---//---//
+
+
+    //initialise dialogue
+    public void InitialiseDialogue(string fileName) {
         ReadFullDayDialogue(fileName);
         SplitFullDayDialogue();
     }
-    void Update() {
+
+    //automatic text update with delay
+    public void AutoTextUpdate(float delay) {
+        if (currentDialogueSection < dialogueSectionAmount) { //if there is still dialogue left
+            //add to timer
+            autoTimer += Time.deltaTime;
+
+            if (speak) {
+                SpeakDialogueSection(currentDialogueSection, 0.08f);
+            }
+
+            if (autoTimer > delay && !speak) {
+                currentDialogueSection += 1;
+                speak = true;
+                autoTimer = 0;
+            }
+
+            print("current - " + currentDialogueSection);
+            print("total - " + dialogueSectionAmount);
+        }
+        else { //if there is no dialogue left
+            if (loops) {
+                currentDialogueSection = 0;
+            }
+            else {
+                targetText.text = "";
+                textDisplayBox.SetActive(false);
+            }
+        }
+    }
+
+    //player controlled text update skipping & advancing with user input
+    public void PlayerInputTextUpdate() {
         if (currentDialogueSection < dialogueSectionAmount) { //if there is still dialogue left
             skipDialogueTimer += Time.deltaTime;
 
@@ -52,14 +155,17 @@ public class DialogueFileReader : MonoBehaviour {
                 speak = true;
                 skipDialogueTimer = 0;
             }
+
+            print("current - " + currentDialogueSection);
+            print("total - " + dialogueSectionAmount);
         }
         else { //if there is no dialogue left
             if (Input.anyKeyDown) { //exit dialogue interaction
-                neighbourDialogueText.text = "";
+                targetText.text = "";
+                textDisplayBox.SetActive(false);
             }
         }
     }
-
 
     //Reads all text from a file. Stores this text within currentDialogue.
     //String textFileName gives it the file to read e.g. input "dialogueText.txt"
@@ -109,27 +215,46 @@ public class DialogueFileReader : MonoBehaviour {
             startedSpeaking = true;
         }
 
+        //find first char for any effects
+        char firstChar = completeDialogue[0];
+        if (firstChar == '!') { //! = shake
+            //set shaking text to true
+            shake = true;
+
+            //remove first char
+            char[] resizeArray = new char[completeDialogue.Length - 1];
+            Array.Copy(completeDialogue, 1, resizeArray, 0, completeDialogue.Length-1);
+            completeDialogue = resizeArray;
+        }
+
         charTimer += Time.deltaTime;
 
         if (spokenDialogue.Length == completeDialogue.Length) {
             startedSpeaking = false;
+            shake = false;
             speak = false; //allows control of function running within update with seperate bool
             return;
         }
         else {
             if (charTimer > timeBetweenCharacters) {
                 spokenDialogue += completeDialogue[currentDialogueChar];
-                neighbourDialogueText.text = spokenDialogue;
+                targetText.text = spokenDialogue;
                 currentDialogueChar += 1;
                 charTimer = 0;
             }
         }
 
-        if (Input.anyKeyDown && skipDialogueTimer > 0.1f) { //allows the player to skip to the end of the dialogue section by pressing any key
+        if (shake) { //if shake == true then shake the dialogue box
+            textDisplayBox.transform.position = new Vector2(originalTextDisplayBoxPos.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount,
+                originalTextDisplayBoxPos.y + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount);
+        }
+
+        if (Input.anyKeyDown && skipDialogueTimer > 0.1f && playerControlled) { //allows the player to skip to the end of the dialogue section by pressing any key (if dialogue is player controlled)
             spokenDialogue = currentSectionedDialogue[section];
-            neighbourDialogueText.text = spokenDialogue;
+            targetText.text = spokenDialogue;
             startedSpeaking = false;
             speak = false; //allows control of function running within update with seperate bool
+            shake = false;
             skipDialogueTimer = 0;
             return;
         }
