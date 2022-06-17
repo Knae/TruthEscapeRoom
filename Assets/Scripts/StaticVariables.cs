@@ -12,6 +12,8 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bMadeBed = false;
 	[SerializeField] static public bool bAlarmOff = false;
 	[SerializeField] static public bool bComputerOn = false;
+	[SerializeField] static public int iNeighbourInteractions = 0; // Number of time player has interacted with neighbour (door)
+	[SerializeField] static public bool bInteractingWithNeighbour = false; // If true, stops player movement
 
 	private void Start()
 	{
