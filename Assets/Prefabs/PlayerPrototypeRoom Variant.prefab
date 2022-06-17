@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907486912716088220, guid: 95a405960cdb497438cbb2f00b1809ac, type: 3}
       propertyPath: m_Name
-      value: PlayerPrototypeRoom
+      value: PlayerPrototypeRoom Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2907486912716088220, guid: 95a405960cdb497438cbb2f00b1809ac, type: 3}
       propertyPath: m_TagString
@@ -105,5 +105,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TextDisplay: {fileID: 0}
   GameDataPrefab: {fileID: 8929305556229068750, guid: ab49a2d3b4ba87146b6a227657da552d, type: 3}
-  bDisplayE: 0
   rNearbyInteractables: {fileID: 0}
