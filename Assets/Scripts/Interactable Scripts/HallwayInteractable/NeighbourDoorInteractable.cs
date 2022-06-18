@@ -8,6 +8,8 @@ public class NeighbourDoorInteractable : MonoBehaviour
     public GameObject Interaction; // Interaction object
     public GameObject Lighting2DObject; // Link to lighting object thats in the way, so can turn off
 
+    public GameObject Player; // Link to play gameobject
+
     [SerializeField] private bool bInteracting = false;
     [SerializeField] private bool bInteractionComplete = false;
     [SerializeField] private bool bInsideNeighbourTrigger = false;
@@ -34,6 +36,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
                     Interaction.SetActive(true); // Turn on neighbour interaction
                     Lighting2DObject.SetActive(false); // Turn off centre lighting
                 }
+                
             }
         }
 

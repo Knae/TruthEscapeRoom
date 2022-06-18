@@ -29,21 +29,4 @@ public class ElevatorSceneTransition : MonoBehaviour
             //SceneManager.LoadScene(sceneName);
         }
     }
-
-    //private void OnTriggerStay2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag.Equals("Player"))
-    //    {
-    //
-    //        if (Input.GetKeyDown(KeyCode.E))
-    //        {
-    //            Debug.Log("Player pressed E for elevator");
-    //
-    //        }
-    //
-    //        //SceneManager.LoadScene(sceneName);
-    //    }
-    //}
-
-    
 }
