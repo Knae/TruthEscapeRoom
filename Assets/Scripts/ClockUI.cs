@@ -9,6 +9,7 @@ public class ClockUI : MonoBehaviour
     public Transform hoursClockHand;
     public Transform minutesClockHand;
     public TMPro.TMP_Text timeText;
+    public GameObject Late;
 
     public float beginningHour;
     public float beginningMinute;
@@ -41,5 +42,10 @@ public class ClockUI : MonoBehaviour
         string minutesString = Mathf.Floor(((dayNormalized * hoursPerDay) % 1f) * minutesPerHour).ToString("00");
 
         timeText.text = hoursString + ":" + minutesString;
+
+        if (day > 11f / 12f)
+        {
+            Late.SetActive(true);
+        }
     }
 }
