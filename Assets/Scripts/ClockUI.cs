@@ -40,7 +40,7 @@ public class ClockUI : MonoBehaviour
         float hoursPerDay = 12f;
         minutesClockHand.eulerAngles = new Vector3(0, 0, -dayNormalized * rotationDegreesPerDay * hoursPerDay);
 
-        string hoursString = Mathf.Floor(dayNormalized * hoursPerDay).ToString("00");
+        string hoursString = Mathf.Floor((dayNormalized * hoursPerDay) + beginningHour).ToString("00");
 
         float minutesPerHour = 60f;
 
