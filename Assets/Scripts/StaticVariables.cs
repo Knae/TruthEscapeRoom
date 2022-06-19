@@ -20,7 +20,7 @@ public class StaticVariables : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
 	}
 
-	static public void NextDay()
+    static public void NextDay()
 	{
 		bHadBreakfast = false;
 		bMadeBed = false;
