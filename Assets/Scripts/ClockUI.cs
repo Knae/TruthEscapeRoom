@@ -17,16 +17,16 @@ public class ClockUI : MonoBehaviour
     public float hourForWork;
 
     private float day;
-    private float realSecondsToIngameDay = 720f; // 12 minutes for 24 hours, two full rotation
+    //private float realSecondsToIngameDay = 720f; // 12 minutes for 24 hours, two full rotation
 
     void Start()
     {
-        day = (beginningHour + (beginningMinute / 60f)) / 12f;
+        //day = (beginningHour + (beginningMinute / 60f)) / 12f;
     }
 
     void Update()
     {
-        day += Time.deltaTime / realSecondsToIngameDay;
+        day = StaticVariables.day; //Time.deltaTime / realSecondsToIngameDay;
 
         float dayNormalized = day % 1f;
 
@@ -45,9 +45,9 @@ public class ClockUI : MonoBehaviour
 
         timeText.text = hoursString + ":" + minutesString;
 
-        taskText.text = "Leave for work by " + hourForWork;
+        taskText.text = "Leave for work by " + StaticVariables.hourForWork;
 
-        if (day > hourForWork / 12f)
+        if (day > StaticVariables.hourForWork / 12f)
         {
             Late.SetActive(true);
         }
