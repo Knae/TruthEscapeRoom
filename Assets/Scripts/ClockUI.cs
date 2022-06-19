@@ -9,10 +9,12 @@ public class ClockUI : MonoBehaviour
     public Transform hoursClockHand;
     public Transform minutesClockHand;
     public TMPro.TMP_Text timeText;
+    public TMPro.TMP_Text taskText;
     public GameObject Late;
 
     public float beginningHour;
     public float beginningMinute;
+    public float hourForWork;
 
     private float day;
     private float realSecondsToIngameDay = 720f; // 12 minutes for 24 hours, two full rotation
@@ -43,7 +45,9 @@ public class ClockUI : MonoBehaviour
 
         timeText.text = hoursString + ":" + minutesString;
 
-        if (day > 11f / 12f)
+        taskText.text = "Leave for work by " + hourForWork;
+
+        if (day > hourForWork / 12f)
         {
             Late.SetActive(true);
         }
