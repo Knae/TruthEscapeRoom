@@ -33,6 +33,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
                 {
                     bInteracting = true; // To stop interacting multiple times
                     StaticVariables.iNeighbourInteractions++; // Increase interactions variable
+                    StaticVariables.bInteractingWithNeighbour = true; // Bool used to stop player movement
                     Interaction.SetActive(true); // Turn on neighbour interaction
                     Lighting2DObject.SetActive(false); // Turn off centre lighting
                 }

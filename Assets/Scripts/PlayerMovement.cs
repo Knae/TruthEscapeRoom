@@ -68,7 +68,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (currentScene.name == "HallwayPrototypeScene") // Check if current scene is the hallway scene
         {
-            PlayerBody.velocity = new Vector2(fHorizontal * fRunSpeed, fVertical * 0); // if it is, then lock vertical movement
+            if (StaticVariables.bInteractingWithNeighbour == false) // Stop player movement if interacting with neighbour
+            {
+                PlayerBody.velocity = new Vector2(fHorizontal * fRunSpeed, fVertical * 0); // if it is, then lock vertical movement
+            }
         }
         else
         {
