@@ -73,8 +73,8 @@ public class DialogueFileReader : MonoBehaviour {
         textDisplayBox.SetActive(true);
 
         if (isNeighbourDialouge) { //if neighbour dialogue automate file loading according to day
-            string day = StaticVariables.iDay.ToString();
-            string fileName = "dialogueDay" + day + ".txt"; //create filename of text matching current day
+            string sectionNum = StaticVariables.iNeighbourInteractions.ToString();
+            string fileName = "Section" + sectionNum + ".txt"; //create filename of text matching current day
 
             InitialiseDialogue(fileName);
         }
@@ -99,6 +99,12 @@ public class DialogueFileReader : MonoBehaviour {
             //clear text
             targetText.text = "";
             textDisplayBox.SetActive(false);
+        }
+
+        if (StaticVariables.bInteractingWithNeighbour && isNeighbourDialouge) {
+            stopDialogue = false;
+            textDisplayBox.SetActive(true);
+            print("! interacting ! interacting ! interacting !");
         }
     }
 
@@ -126,9 +132,6 @@ public class DialogueFileReader : MonoBehaviour {
                 speak = true;
                 autoTimer = 0;
             }
-
-            print("current - " + currentDialogueSection);
-            print("total - " + dialogueSectionAmount);
         }
         else { //if there is no dialogue left
             if (loops) {
@@ -162,6 +165,7 @@ public class DialogueFileReader : MonoBehaviour {
         else { //if there is no dialogue left
             if (Input.anyKeyDown) { //exit dialogue interaction
                 targetText.text = "";
+                StaticVariables.bInteractingWithNeighbour = false;
                 textDisplayBox.SetActive(false);
             }
         }
