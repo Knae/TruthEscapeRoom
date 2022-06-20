@@ -28,6 +28,8 @@ public class FadeFromBlack : MonoBehaviour
         objectColor = UI_Image.GetComponent<Image>().color;
 
         TMPro_Text.text = "Day " + StaticVariables.iDay;
+
+        StaticVariables.ResetClock(); // Reset clock at start of the day
     }
 
     void Update()

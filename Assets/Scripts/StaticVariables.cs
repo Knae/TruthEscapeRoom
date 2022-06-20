@@ -52,13 +52,16 @@ public class StaticVariables : MonoBehaviour
 		bMadeBed = false;
 		bAlarmOff = false;
 		iDay++;
-
-		// Reset Day start time on new day
-		day = (beginningHour + (beginningMinute / 60f)) / 12f;
 	}
 
 	static public bool bReadyForWork()
 	{
 		return bHadBreakfast&&bMadeBed&&bAlarmOff;
+	}
+
+	static public void ResetClock()
+    {
+		// Reset Day start time on new day
+		day = (beginningHour + (beginningMinute / 60f)) / 12f;
 	}
 }
