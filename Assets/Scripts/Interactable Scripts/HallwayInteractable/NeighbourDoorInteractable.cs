@@ -45,6 +45,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
         {
             Interaction.SetActive(false); // Turn on neighbour interaction
             Lighting2DObject.SetActive(true); // Turn off centre lighting
+            StaticVariables.bInteractingWithNeighbour = false; // Set static variable bool to false
         }
     }
 

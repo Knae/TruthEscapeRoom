@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // For accessing UI
+using TMPro;
 
 public class FadeFromBlack : MonoBehaviour
 {
-    public GameObject fadeObject; // GameObject to fade
+    //public GameObject fadeObject; // GameObject to fade
     public Color objectColor;
-    public Text UI_textDay; // UI text to fade
-    [SerializeField] GameObject staticVariableObject; // Object holding script for static variables
+    //public Text UI_textDay; // UI text to fade
+    public TextMeshProUGUI TMPro_Text; // Text Mesh pro object
+    public Image UI_Image;
+
+    //[SerializeField] GameObject staticVariableObject; // Object holding script for static variables
     
     public float fFadeAmount;
     public float fFadeAmountText;
@@ -19,10 +23,11 @@ public class FadeFromBlack : MonoBehaviour
 
     void Start()
     {
-        fadeObject = gameObject;
-        objectColor = fadeObject.GetComponent<SpriteRenderer>().color;
+        UI_Image.enabled = true;
+        //fadeObject = gameObject;
+        objectColor = UI_Image.GetComponent<Image>().color;
 
-        UI_textDay.text = "Day " + StaticVariables.iDay;
+        TMPro_Text.text = "Day " + StaticVariables.iDay;
     }
 
     void Update()
@@ -35,15 +40,15 @@ public class FadeFromBlack : MonoBehaviour
 
         if (bFading == true)
         {
-            if (fadeObject.GetComponent<SpriteRenderer>().color.a > 0)
+            if (UI_Image.GetComponent<Image>().color.a > 0)
             {
                 fFadeAmount = objectColor.a - (fFadeSpeed * Time.deltaTime);
                 fFadeAmountText = fFadeAmount - 2;
 
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fFadeAmount);
-                fadeObject.GetComponent<SpriteRenderer>().color = objectColor;
+                UI_Image.GetComponent<Image>().color = objectColor;
 
-                UI_textDay.color = new Color(UI_textDay.color.r, UI_textDay.color.g, UI_textDay.color.b, fFadeAmountText);
+                TMPro_Text.color = new Color(TMPro_Text.color.r, TMPro_Text.color.g, TMPro_Text.color.b, fFadeAmountText);
             }
         }
     }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI; // For accessing UI
 
 public class FadeToBlack : MonoBehaviour
 {
-    public GameObject fadeObject; // GameObject to fade
+    //public GameObject fadeObject; // GameObject to fade
+    public Image UI_Image; // UI image to fade
     public Color objectColor;
     public float fFadeAmount;
     public float fFadeSpeed = 0.5f;
@@ -17,8 +19,8 @@ public class FadeToBlack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fadeObject = gameObject;
-        objectColor = fadeObject.GetComponent<SpriteRenderer>().color;
+        //fadeObject = gameObject;
+        objectColor = UI_Image.GetComponent<Image>().color;
     }
 
     // Update is called once per frame
@@ -26,15 +28,15 @@ public class FadeToBlack : MonoBehaviour
     {
         if (bFading == true)
         {
-            if (fadeObject.GetComponent<SpriteRenderer>().color.a < 1)
+            if (UI_Image.GetComponent<Image>().color.a < 1)
             {
                 fFadeAmount = objectColor.a + (fFadeSpeed * Time.deltaTime);
 
                 objectColor = new Color(objectColor.r, objectColor.g, objectColor.b, fFadeAmount);
-                fadeObject.GetComponent<SpriteRenderer>().color = objectColor;
+                UI_Image.GetComponent<Image>().color = objectColor;
             }
 
-            if (fadeObject.GetComponent<SpriteRenderer>().color.a >= 1)
+            if (UI_Image.GetComponent<Image>().color.a >= 1)
             {
                 SceneManager.LoadScene("PlayerRoom");
             }
