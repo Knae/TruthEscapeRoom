@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BedInteractMK1 : MonoBehaviour
+public class AlarmInteractMK1 : MonoBehaviour
 {
-    [Header("Bed Textures")]
-    public GameObject Bed_Made;
-    public GameObject Bed_NotMade;
-
     [Header("Settings")]
     public GameObject ETextDisplay;
     public bool bIsTriggering = false;
@@ -15,22 +11,49 @@ public class BedInteractMK1 : MonoBehaviour
     public bool bPlayerMoving = true;
     public GameObject Player;
 
+    [Header("Text SFX Variables")]
+    [SerializeField] private GameObject objAlarmSfx;
+    [SerializeField] private float fCount = 0.0f;
+    [SerializeField] private const float kfDisplayFXPeriod = 2.0f;
+    [SerializeField] private const float kfHideFXPeriod = -0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
         ETextDisplay.SetActive(false);
-        Bed_Made.SetActive(false);
-        Bed_NotMade.SetActive(true);
+        objAlarmSfx.SetActive(true);
+        fCount = kfDisplayFXPeriod;
     }
 
     // Update is called once per frame
     void Update()
     {
+        fCount -= Time.deltaTime;
+        if (StaticVariables.bAlarmOff == false)
+        {
+            if (fCount <= kfDisplayFXPeriod && fCount > 0.0f)
+            {
+                objAlarmSfx.SetActive(true);
+            }
+            else if (fCount <= 0 && fCount > kfHideFXPeriod)
+            {
+                objAlarmSfx.SetActive(false);
+            }
+            else if (fCount <= kfHideFXPeriod)
+            {
+                fCount = kfDisplayFXPeriod;
+            }
+        }
+        else if (StaticVariables.bAlarmOff) // If alarm is turned off
+        {
+            objAlarmSfx.SetActive(false);
+            fCount = 0;
+        }
+
         if (bIsTriggering == true)
         {
             // Show E text display
-            if (StaticVariables.bMadeBed == false)
+            if (StaticVariables.bAlarmOff == false)
             {
                 ETextDisplay.SetActive(true);
             }
@@ -38,9 +61,7 @@ public class BedInteractMK1 : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 ETextDisplay.SetActive(false);
-                Bed_Made.SetActive(true);
-                Bed_NotMade.SetActive(false);
-                StaticVariables.bMadeBed = true;
+                StaticVariables.bAlarmOff = true;
                 bPlayerMoving = false;
                 Player.GetComponent<Animator>().SetBool("isInteracting", true);
             }
@@ -84,3 +105,4 @@ public class BedInteractMK1 : MonoBehaviour
         }
     }
 }
+

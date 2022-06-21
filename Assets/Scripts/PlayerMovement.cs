@@ -27,8 +27,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        fHorizontal = Input.GetAxisRaw("Horizontal"); // Player horizontal movement variable
-        fVertical = Input.GetAxisRaw("Vertical"); // Player vertical movement variable
+        if (StaticVariables.bInteractingWithNeighbour == false && StaticVariables.bInteractingWithObject == false) // Stop movement and animations
+        {
+            fHorizontal = Input.GetAxisRaw("Horizontal"); // Player horizontal movement variable
+            fVertical = Input.GetAxisRaw("Vertical"); // Player vertical movement variable
+        }
 
         // --Animation--
         // Horizontal animation - flips image depending on direction
@@ -73,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
                 PlayerBody.velocity = new Vector2(fHorizontal * fRunSpeed, fVertical * 0); // if it is, then lock vertical movement
             }
         }
-        else
+        else if (StaticVariables.bInteractingWithObject == false)
         {
             PlayerBody.velocity = new Vector2(fHorizontal * fRunSpeed, fVertical * fRunSpeed); // otherwise, allow vertical movement
         }

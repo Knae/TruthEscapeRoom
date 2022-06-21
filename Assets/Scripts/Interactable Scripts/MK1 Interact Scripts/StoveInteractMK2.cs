@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlarmInteractMK1 : MonoBehaviour
+public class StoveInteractMK2 : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject ETextDisplay;
     public bool bIsTriggering = false;
-
-    [Header("DebugVariables")]
-    [SerializeField] private GameObject objAlarmSfx;
-    [SerializeField] private float fCount = 0.0f;
-    [SerializeField] private const float kfDisplayFXPeriod = 2.0f;
-    [SerializeField] private const float kfHideFXPeriod = 0.5f;
-
+    public float fTimePlayerMovementOff = 3.0f;
+    public bool bPlayerMoving = true;
+    public GameObject Player;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -24,32 +21,10 @@ public class AlarmInteractMK1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        fCount -= Time.deltaTime;
-        if (fCount <= 0 && !StaticVariables.bAlarmOff)
-        {
-            if (objAlarmSfx == null)
-            {
-                objAlarmSfx.transform.position = transform.position;
-                fCount = kfDisplayFXPeriod;
-            }
-            else
-            {
-                Destroy(objAlarmSfx);
-                objAlarmSfx = null;
-                fCount = kfHideFXPeriod;
-            }
-        }
-        else if (objAlarmSfx != null & StaticVariables.bAlarmOff)
-        {
-            Destroy(objAlarmSfx);
-            objAlarmSfx = null;
-            fCount = 0;
-        }
-
         if (bIsTriggering == true)
         {
             // Show E text display
-            if (StaticVariables.bAlarmOff == false)
+            if (StaticVariables.bHadBreakfast == false)
             {
                 ETextDisplay.SetActive(true);
             }
@@ -57,13 +32,32 @@ public class AlarmInteractMK1 : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 ETextDisplay.SetActive(false);
-               
-                StaticVariables.bAlarmOff = true;
+                StaticVariables.bHadBreakfast = true;
+                bPlayerMoving = false;
+                Player.GetComponent<Animator>().SetBool("isInteracting", true);
             }
+
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                Player.GetComponent<Animator>().SetBool("isInteracting", false);
+            }
+
         }
         else
         {
             ETextDisplay.SetActive(false);
+        }
+
+        // Stop player movement for 'fTimePlayerMovementOff' amount of time
+        if (bPlayerMoving == false)
+        {
+            StaticVariables.bInteractingWithObject = true;
+            fTimePlayerMovementOff = fTimePlayerMovementOff - 1 * Time.deltaTime;
+            if (fTimePlayerMovementOff <= 0)
+            {
+                StaticVariables.bInteractingWithObject = false;
+                bPlayerMoving = true;
+            }
         }
     }
 
