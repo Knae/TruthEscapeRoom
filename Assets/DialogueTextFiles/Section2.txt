@@ -1,1 +1,1 @@
-Hello?|!*sigh*|Look. I promise, im fine, I know you’re concerned, but its really nothing.|I dont need any help or anything like that, you really just need to leave it alone.|Thankyou.|!Goodbye.
+Hello?|!&*sigh*|~Look. I promise, im fine, I know you’re concerned, but its really nothing.|&I dont need any help or anything like that, you really just need to leave it alone.|^Thankyou.|!Goodbye.

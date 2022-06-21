@@ -20,6 +20,16 @@ public class DialogueFileReader : MonoBehaviour {
     public Text targetText;
     public GameObject textDisplayBox;
 
+    public GameObject neighbourInteractSprite;
+
+    //sprites for neighbour expressions
+    public Sprite angry;
+    public Sprite sheepish;
+    public Sprite standard;
+    public Sprite irritated;
+    public Sprite smiling;
+    public Sprite shocked;
+
     //stores full string from file and the 'cut-up' string array of dialogue sections
     string currentDialogue;
     string[] currentSectionedDialogue = new string[100]; //this size should be enough
@@ -46,6 +56,9 @@ public class DialogueFileReader : MonoBehaviour {
     float autoTimer = 0;
     //timer for automatic text delay time between text
     public float autoDelayTime;
+
+    //time between characters
+    public float timeIntervalBetweenCharacters = 0;
 
     //whether the dialogue is controlled by the player or not
     public bool playerControlled;
@@ -104,7 +117,6 @@ public class DialogueFileReader : MonoBehaviour {
         if (StaticVariables.bInteractingWithNeighbour && isNeighbourDialouge) {
             stopDialogue = false;
             textDisplayBox.SetActive(true);
-            print("! interacting ! interacting ! interacting !");
         }
     }
 
@@ -124,7 +136,7 @@ public class DialogueFileReader : MonoBehaviour {
             autoTimer += Time.deltaTime;
 
             if (speak) {
-                SpeakDialogueSection(currentDialogueSection, 0.08f);
+                SpeakDialogueSection(currentDialogueSection, timeIntervalBetweenCharacters);
             }
 
             if (autoTimer > delay && !speak) {
@@ -150,7 +162,7 @@ public class DialogueFileReader : MonoBehaviour {
             skipDialogueTimer += Time.deltaTime;
 
             if (speak) {
-                SpeakDialogueSection(currentDialogueSection, 0.08f);
+                SpeakDialogueSection(currentDialogueSection, timeIntervalBetweenCharacters);
             }
 
             if (Input.anyKeyDown && !speak && skipDialogueTimer > 0.1f) {
@@ -158,9 +170,6 @@ public class DialogueFileReader : MonoBehaviour {
                 speak = true;
                 skipDialogueTimer = 0;
             }
-
-            print("current - " + currentDialogueSection);
-            print("total - " + dialogueSectionAmount);
         }
         else { //if there is no dialogue left
             if (Input.anyKeyDown) { //exit dialogue interaction
@@ -227,8 +236,28 @@ public class DialogueFileReader : MonoBehaviour {
 
             //remove first char
             char[] resizeArray = new char[completeDialogue.Length - 1];
-            Array.Copy(completeDialogue, 1, resizeArray, 0, completeDialogue.Length-1);
+            Array.Copy(completeDialogue, 1, resizeArray, 0, completeDialogue.Length - 1);
             completeDialogue = resizeArray;
+        }
+        else if (isNeighbourDialouge) { //if not ! check for emotion/sprite change symbols
+            if (firstChar == '^') { //angry [^]
+                changeNeighbourSpriteSetup(angry);
+            }
+            else if (firstChar == '%') { //sheepish [%]
+                changeNeighbourSpriteSetup(sheepish);
+            }
+            else if (firstChar == '~') { //standard [~]
+                changeNeighbourSpriteSetup(standard);
+            }
+            else if (firstChar == '&') { //irritated [&]
+                changeNeighbourSpriteSetup(irritated);
+            }
+            else if (firstChar == '$') { //happy/smiling [$]
+                changeNeighbourSpriteSetup(smiling);
+            }
+            else if (firstChar == '#') { //shocked/surprised [#]
+                changeNeighbourSpriteSetup(shocked);
+            }
         }
 
         charTimer += Time.deltaTime;
@@ -254,7 +283,8 @@ public class DialogueFileReader : MonoBehaviour {
         }
 
         if (Input.anyKeyDown && skipDialogueTimer > 0.1f && playerControlled) { //allows the player to skip to the end of the dialogue section by pressing any key (if dialogue is player controlled)
-            spokenDialogue = currentSectionedDialogue[section];
+            string fullString = new string(completeDialogue);
+            spokenDialogue = fullString;
             targetText.text = spokenDialogue;
             startedSpeaking = false;
             speak = false; //allows control of function running within update with seperate bool
@@ -262,5 +292,15 @@ public class DialogueFileReader : MonoBehaviour {
             skipDialogueTimer = 0;
             return;
         }
+    }
+
+    void changeNeighbourSpriteSetup(Sprite sprite) {
+        //remove first char
+        char[] resizeArray = new char[completeDialogue.Length - 1];
+        Array.Copy(completeDialogue, 1, resizeArray, 0, completeDialogue.Length - 1);
+        completeDialogue = resizeArray;
+
+        //set sprite
+        neighbourInteractSprite.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }
