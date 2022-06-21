@@ -17,12 +17,16 @@ public class AlarmInteractMK1 : MonoBehaviour
     [SerializeField] private const float kfDisplayFXPeriod = 2.0f;
     [SerializeField] private const float kfHideFXPeriod = -0.5f;
 
+    private bool soundPlayed = false;
+
     // Start is called before the first frame update
     void Start()
     {
         ETextDisplay.SetActive(false);
         objAlarmSfx.SetActive(true);
         fCount = kfDisplayFXPeriod;
+        SoundManager.instance.AlarmSoundManager.clip = SoundManager.instance.Alarm;
+        SoundManager.instance.AlarmSoundManager.Play();
     }
 
     // Update is called once per frame
@@ -64,6 +68,12 @@ public class AlarmInteractMK1 : MonoBehaviour
                 StaticVariables.bAlarmOff = true;
                 bPlayerMoving = false;
                 Player.GetComponent<Animator>().SetBool("isInteracting", true);
+                SoundManager.instance.AlarmSoundManager.Stop();
+                if (soundPlayed == false)
+                {
+                    SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.AlarmOff);
+                    soundPlayed = true;
+                }
             }
 
             if (Input.GetKeyUp(KeyCode.E))

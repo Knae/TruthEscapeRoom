@@ -15,6 +15,8 @@ public class BedInteractMK1 : MonoBehaviour
     public bool bPlayerMoving = true;
     public GameObject Player;
 
+    private bool soundPlayed = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +45,11 @@ public class BedInteractMK1 : MonoBehaviour
                 StaticVariables.bMadeBed = true;
                 bPlayerMoving = false;
                 Player.GetComponent<Animator>().SetBool("isInteracting", true);
+                if (soundPlayed == false)
+                {
+                    SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Bed);
+                    soundPlayed = true;
+                }
             }
 
             if (Input.GetKeyUp(KeyCode.E))

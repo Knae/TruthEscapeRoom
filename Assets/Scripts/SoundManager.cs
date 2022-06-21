@@ -7,11 +7,21 @@ public class SoundManager : MonoBehaviour
 {
     public AudioSource Sound;
     public AudioSource Music;
+    public AudioSource AlarmSoundManager;
 
     [Header("Audio Clips")]
     public AudioClip Click;
     public AudioClip MenuMusic;
     public AudioClip Day1Music;
+    public AudioClip Day2Music;
+    public AudioClip Day3Music;
+    public AudioClip Day4Music;
+    public AudioClip Day5Music;
+    public AudioClip Alarm;
+    public AudioClip AlarmOff;
+    public AudioClip Bed;
+    public AudioClip Stove;
+    public AudioClip Door;
     public static SoundManager instance;
 
     private void Awake()
