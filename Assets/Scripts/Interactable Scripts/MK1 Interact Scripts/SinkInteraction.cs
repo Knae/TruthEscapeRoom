@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoveInteractMK2 : MonoBehaviour
+public class SinkInteraction : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject ETextDisplay;
     public bool bIsTriggering = false;
-    public float fTimePlayerMovementOff = 3.0f;
+    public bool bIsUsingSink = false;
+    public float fTimePlayerMovementOff = 2.0f;
     public bool bPlayerMoving = true;
     public GameObject Player;
-    public GameObject FryingPan;
     public GameObject Particles;
 
     // Start is called before the first frame update
     void Start()
     {
         ETextDisplay.SetActive(false);
-        FryingPan.SetActive(false);
         Particles.SetActive(false);
     }
 
@@ -27,19 +26,18 @@ public class StoveInteractMK2 : MonoBehaviour
         if (bIsTriggering == true)
         {
             // Show E text display
-            if (StaticVariables.bHadBreakfast == false)
+            if (bIsUsingSink == false)
             {
                 ETextDisplay.SetActive(true);
             }
-
+           
             if (Input.GetKeyDown(KeyCode.E))
             {
                 ETextDisplay.SetActive(false);
-                StaticVariables.bHadBreakfast = true;
                 bPlayerMoving = false;
                 Player.GetComponent<Animator>().SetBool("isInteracting", true);
-                FryingPan.SetActive(true);
                 Particles.SetActive(true);
+                bIsUsingSink = true;
             }
 
             if (Input.GetKeyUp(KeyCode.E))
@@ -61,7 +59,6 @@ public class StoveInteractMK2 : MonoBehaviour
             {
                 StaticVariables.bInteractingWithObject = false;
                 bPlayerMoving = true;
-                FryingPan.SetActive(false);
                 Particles.SetActive(false);
             }
         }
@@ -80,6 +77,8 @@ public class StoveInteractMK2 : MonoBehaviour
         if (trigger.gameObject.tag == "Player") // Check that it is player
         {
             bIsTriggering = false;
+            bIsUsingSink = false;
+            fTimePlayerMovementOff = 2.0f;
         }
     }
 }

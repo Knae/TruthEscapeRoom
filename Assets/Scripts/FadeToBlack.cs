@@ -38,6 +38,7 @@ public class FadeToBlack : MonoBehaviour
 
             if (UI_Image.GetComponent<Image>().color.a >= 1)
             {
+                StaticVariables.NextDay();
                 SceneManager.LoadScene("PlayerRoom");
             }
         }

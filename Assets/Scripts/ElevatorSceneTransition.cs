@@ -24,7 +24,7 @@ public class ElevatorSceneTransition : MonoBehaviour
         {
             Debug.Log("Player entered elevator trigger");
             fadeToBlackObject.GetComponent<FadeToBlack>().bFading = true; // Turn on fade to black object
-            StaticVariables.NextDay();
+            //StaticVariables.NextDay();
 
             //SceneManager.LoadScene(sceneName);
         }

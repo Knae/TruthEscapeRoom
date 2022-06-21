@@ -2,23 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoveInteractMK2 : MonoBehaviour
+public class ComputerInteraction : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject ETextDisplay;
     public bool bIsTriggering = false;
+    public bool bIsUsingComputer = false;
     public float fTimePlayerMovementOff = 3.0f;
     public bool bPlayerMoving = true;
     public GameObject Player;
-    public GameObject FryingPan;
-    public GameObject Particles;
+    public GameObject Lighting;
 
     // Start is called before the first frame update
     void Start()
     {
         ETextDisplay.SetActive(false);
-        FryingPan.SetActive(false);
-        Particles.SetActive(false);
+        Lighting.SetActive(false);
     }
 
     // Update is called once per frame
@@ -27,7 +26,7 @@ public class StoveInteractMK2 : MonoBehaviour
         if (bIsTriggering == true)
         {
             // Show E text display
-            if (StaticVariables.bHadBreakfast == false)
+            if (bIsUsingComputer == false)
             {
                 ETextDisplay.SetActive(true);
             }
@@ -35,11 +34,10 @@ public class StoveInteractMK2 : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 ETextDisplay.SetActive(false);
-                StaticVariables.bHadBreakfast = true;
                 bPlayerMoving = false;
                 Player.GetComponent<Animator>().SetBool("isInteracting", true);
-                FryingPan.SetActive(true);
-                Particles.SetActive(true);
+                Lighting.SetActive(true);
+                bIsUsingComputer = true;
             }
 
             if (Input.GetKeyUp(KeyCode.E))
@@ -61,10 +59,10 @@ public class StoveInteractMK2 : MonoBehaviour
             {
                 StaticVariables.bInteractingWithObject = false;
                 bPlayerMoving = true;
-                FryingPan.SetActive(false);
-                Particles.SetActive(false);
+                Lighting.SetActive(false);
             }
         }
+
     }
 
     void OnTriggerEnter2D(Collider2D trigger)

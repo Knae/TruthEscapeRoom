@@ -40,7 +40,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E) && bInteracting == false)
                 {
                     bTimerStarted = true;
-
+                    EPrompt.SetActive(false);
                     animation.SetBool("isInteracting", true);
                 }
 
@@ -86,7 +86,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
             Debug.Log("Player collided with neighbour door");
             bInsideNeighbourTrigger = true;
 
-            if (StaticVariables.iDay > 1) // Can only interact with neighbour from day 2
+            if (StaticVariables.iDay > 1 && StaticVariables.bNeighbourInteractionComplete == false) // Can only interact with neighbour from day 2, and if interact hasnt already happened
             {
                 EPrompt.SetActive(true); // Show E notification
             }
