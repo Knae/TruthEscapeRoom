@@ -12,7 +12,6 @@ public class NeighbourDoorInteractable : MonoBehaviour
     [HideInInspector] Animator animation;
 
     [SerializeField] private bool bInteracting = false; // So that neighbour door can only be interacted once per day
-    [SerializeField] private bool bInteractionComplete = false; // Flip this bool to turn off the interaction, and turn player movement back on
     [SerializeField] private bool bInsideNeighbourTrigger = false;
 
     // Timer - Waits fMaxtime before starting the interaction
@@ -33,48 +32,49 @@ public class NeighbourDoorInteractable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Code to start the neighbour interaction
-        if (bInsideNeighbourTrigger == true) // Code will only run if player inside neighbour trigger area
+        if (StaticVariables.bNeighbourInteractionComplete == false)
         {
-            if (Input.GetKeyDown(KeyCode.E) && bInteracting == false)
+            // Code to start the neighbour interaction
+            if (bInsideNeighbourTrigger == true) // Code will only run if player inside neighbour trigger area
             {
-                bTimerStarted = true;
+                if (Input.GetKeyDown(KeyCode.E) && bInteracting == false)
+                {
+                    bTimerStarted = true;
 
-                animation.SetBool("isInteracting", true);
+                    animation.SetBool("isInteracting", true);
+                }
+
+                if (Input.GetKeyUp(KeyCode.E)) // Forces isInteraction bool to false when key released, so interact animation runs once
+                {
+                    animation.SetBool("isInteracting", false);
+                }
             }
 
-            if (Input.GetKeyUp(KeyCode.E)) // Forces isInteraction bool to false when key released, so interact animation runs once
+            // Timer
+            if (bTimerStarted == true)
             {
-                animation.SetBool("isInteracting", false);
+                fTimer = fTimer + 1 * Time.deltaTime; // Increase timer
+                if (fTimer >= fMaxTime)
+                {
+                    bTimerStarted = false;
+                    bTimerComplete = true;
+                }
+            }
+
+            // -- Start Neighbour Interaction --
+            if (StaticVariables.iDay > 1 && bTimerComplete == true) // Can only interact with neighbour from day 2, & waits for timer to end so shows interact animation
+            {
+                bInteracting = true; // To stop interacting multiple times
+                StaticVariables.iNeighbourInteractions++; // Increase interactions variable
+                StaticVariables.bInteractingWithNeighbour = true; // Bool used to stop player movement
+                Interaction.SetActive(true); // Turn on neighbour interaction
+                Lighting2DObject.SetActive(false); // Turn off centre lighting
             }
         }
-
-        // Timer
-        if (bTimerStarted == true)
-        {
-            fTimer = fTimer + 1 * Time.deltaTime; // Increase timer
-            if (fTimer >= fMaxTime)
-            {
-                bTimerStarted = false;
-                bTimerComplete = true;
-            }
-        }
-
-        // -- Start Neighbour Interaction --
-        if (StaticVariables.iDay > 1 && bTimerComplete == true) // Can only interact with neighbour from day 2, & waits for timer to end so shows interact animation
-        {
-            bInteracting = true; // To stop interacting multiple times
-            StaticVariables.iNeighbourInteractions++; // Increase interactions variable
-            StaticVariables.bInteractingWithNeighbour = true; // Bool used to stop player movement
-            Interaction.SetActive(true); // Turn on neighbour interaction
-            Lighting2DObject.SetActive(false); // Turn off centre lighting
-        }
-
-        // -- End Neighbour Interaction --
-        if (bInteractionComplete == true)
+        else // -- End Neighbour Interaction --
         {
             Interaction.SetActive(false); // Turn on neighbour interaction
-            Lighting2DObject.SetActive(true); // Turn off centre lighting
+            Lighting2DObject.SetActive(true); // Turn on centre lighting
             StaticVariables.bInteractingWithNeighbour = false; // Set static variable bool to false
         }
     }
