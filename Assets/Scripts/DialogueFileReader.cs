@@ -175,6 +175,7 @@ public class DialogueFileReader : MonoBehaviour {
             if (Input.anyKeyDown) { //exit dialogue interaction
                 targetText.text = "";
                 StaticVariables.bInteractingWithNeighbour = false;
+                StaticVariables.bNeighbourInteractionComplete = true;
                 textDisplayBox.SetActive(false);
             }
         }
