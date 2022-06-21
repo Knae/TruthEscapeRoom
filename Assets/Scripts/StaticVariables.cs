@@ -15,6 +15,7 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bComputerOn = false;
 	[SerializeField] static public int iNeighbourInteractions = 0; // Number of time player has interacted with neighbour (door)
 	[SerializeField] static public bool bInteractingWithNeighbour = false; // If true, stops player movement
+	[SerializeField] static public bool bInteractingWithObject = false; // If true, stops player movement
 
 	[Header("Time Variables")]
 	[SerializeField] static public float beginningHour = 9.0f;
