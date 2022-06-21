@@ -55,6 +55,7 @@ public class StaticVariables : MonoBehaviour
 		bMadeBed = false;
 		bAlarmOff = false;
 		iDay++;
+		bNeighbourInteractionComplete = false;
 	}
 
 	static public bool bReadyForWork()
