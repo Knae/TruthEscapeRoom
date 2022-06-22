@@ -47,6 +47,8 @@ public class StaticVariables : MonoBehaviour
 		{
 			day += Time.deltaTime / realSecondsToIngameDay;
 		}
+
+		Debug.Log("Day: " + iDay); // Show in debug
 	}
 
     static public void NextDay()

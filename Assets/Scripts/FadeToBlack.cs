@@ -8,6 +8,7 @@ public class FadeToBlack : MonoBehaviour
 {
     //public GameObject fadeObject; // GameObject to fade
     public Image UI_Image; // UI image to fade
+    public GameObject FadeToBlackObject;
     public Color objectColor;
     public float fFadeAmount;
     public float fFadeSpeed = 0.5f;
@@ -28,6 +29,7 @@ public class FadeToBlack : MonoBehaviour
     {
         if (bFading == true)
         {
+            FadeToBlackObject.SetActive(true);
             if (UI_Image.GetComponent<Image>().color.a < 1)
             {
                 fFadeAmount = objectColor.a + (fFadeSpeed * Time.deltaTime);
