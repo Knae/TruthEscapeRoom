@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MusicPerDay : MonoBehaviour
 {
+    public Slider soundSlider;
+    public Slider musicSlider;
     void Start()
     {
+        SoundManager.instance.RefreshVolume();
         if (StaticVariables.iDay == 1)
         {
+            soundSlider.normalizedValue = PlayerPrefs.GetFloat("SoundVolume");
+            musicSlider.normalizedValue = PlayerPrefs.GetFloat("MusicVolume");
             SoundManager.instance.Music.clip = SoundManager.instance.Day1Music;
             SoundManager.instance.Music.Play();
         }

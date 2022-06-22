@@ -47,6 +47,7 @@ public class SoundManager : MonoBehaviour
     public void RefreshVolume()
     {
         Sound.volume = PlayerPrefs.GetFloat("SoundVolume");
+        AlarmSoundManager.volume = PlayerPrefs.GetFloat("SoundVolume");
         Music.volume = PlayerPrefs.GetFloat("MusicVolume");
     }
 }
