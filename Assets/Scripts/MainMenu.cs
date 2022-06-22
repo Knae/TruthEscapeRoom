@@ -24,8 +24,7 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Loads the next scene
         SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Click);
-        SoundManager.instance.Music.clip = SoundManager.instance.Day1Music;
-        SoundManager.instance.Music.Play();
+        SoundManager.instance.Music.Stop();
     }
 
     // Options Button
@@ -48,6 +47,11 @@ public class MainMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void Donate()
+    {
+        
     }
 
     public void slideSound()

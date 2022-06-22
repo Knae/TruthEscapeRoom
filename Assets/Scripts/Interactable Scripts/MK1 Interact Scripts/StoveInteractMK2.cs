@@ -13,6 +13,8 @@ public class StoveInteractMK2 : MonoBehaviour
     public GameObject FryingPan;
     public GameObject Particles;
 
+    private bool soundPlayed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,11 @@ public class StoveInteractMK2 : MonoBehaviour
                 Player.GetComponent<Animator>().SetBool("isInteracting", true);
                 FryingPan.SetActive(true);
                 Particles.SetActive(true);
+                if (soundPlayed == false)
+                {
+                    SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Stove);
+                    soundPlayed = true;
+                }
             }
 
             if (Input.GetKeyUp(KeyCode.E))

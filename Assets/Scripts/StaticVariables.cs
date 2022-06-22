@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement; // For accessing scene related data
 public class StaticVariables : MonoBehaviour
 {
     [Header("Game Variables")]
-    [SerializeField] static public int iDay = 2;
+    [SerializeField] static public int iDay = 1;
 	[SerializeField] static public bool bHasBathed = false;
 	[SerializeField] static public bool bHadBreakfast = false;
 	[SerializeField] static public bool bMadeBed = false;
@@ -47,6 +47,8 @@ public class StaticVariables : MonoBehaviour
 		{
 			day += Time.deltaTime / realSecondsToIngameDay;
 		}
+
+		Debug.Log("Day: " + iDay); // Show in debug
 	}
 
     static public void NextDay()

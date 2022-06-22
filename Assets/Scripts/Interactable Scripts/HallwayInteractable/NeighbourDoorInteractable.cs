@@ -13,6 +13,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
 
     [SerializeField] private bool bInteracting = false; // So that neighbour door can only be interacted once per day
     [SerializeField] private bool bInsideNeighbourTrigger = false;
+    [SerializeField] private bool bCounterIncreased = false;
 
     // Timer - Waits fMaxtime before starting the interaction
     [Header("Timer Related")]
@@ -65,7 +66,6 @@ public class NeighbourDoorInteractable : MonoBehaviour
             if (StaticVariables.iDay > 1 && bTimerComplete == true) // Can only interact with neighbour from day 2, & waits for timer to end so shows interact animation
             {
                 bInteracting = true; // To stop interacting multiple times
-                StaticVariables.iNeighbourInteractions++; // Increase interactions variable
                 StaticVariables.bInteractingWithNeighbour = true; // Bool used to stop player movement
                 Interaction.SetActive(true); // Turn on neighbour interaction
                 Lighting2DObject.SetActive(false); // Turn off centre lighting
@@ -76,7 +76,15 @@ public class NeighbourDoorInteractable : MonoBehaviour
             Interaction.SetActive(false); // Turn on neighbour interaction
             Lighting2DObject.SetActive(true); // Turn on centre lighting
             StaticVariables.bInteractingWithNeighbour = false; // Set static variable bool to false
+
+            if (bCounterIncreased == false)
+            {
+                StaticVariables.iNeighbourInteractions++; // Increase interactions variable
+                bCounterIncreased = true;
+            }
         }
+
+        Debug.Log(StaticVariables.iNeighbourInteractions);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

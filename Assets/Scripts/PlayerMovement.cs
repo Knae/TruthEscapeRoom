@@ -65,6 +65,15 @@ public class PlayerMovement : MonoBehaviour
             animation.SetBool("isVertical", false);
             animation.SetBool("isHorizontal", false);
         }
+
+        // Double check to force character to idle if no movement
+        if (StaticVariables.bInteractingWithNeighbour == true || StaticVariables.bInteractingWithObject == true)
+        {
+            animation.SetBool("isWalking", false);
+            animation.SetBool("isVertical", false);
+            animation.SetBool("isHorizontal", false);
+        }
+        
     }
 
     private void FixedUpdate()
@@ -79,6 +88,12 @@ public class PlayerMovement : MonoBehaviour
         else if (StaticVariables.bInteractingWithObject == false)
         {
             PlayerBody.velocity = new Vector2(fHorizontal * fRunSpeed, fVertical * fRunSpeed); // otherwise, allow vertical movement
+        }
+
+        // Stop movement
+        if (StaticVariables.bInteractingWithNeighbour == true || StaticVariables.bInteractingWithObject == true)
+        {
+            PlayerBody.velocity = new Vector2(0, 0); // otherwise, allow vertical movement
         }
     }
 
