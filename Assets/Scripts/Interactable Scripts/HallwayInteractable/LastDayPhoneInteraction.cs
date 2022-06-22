@@ -27,7 +27,7 @@ public class LastDayPhoneInteraction : MonoBehaviour
         Button2.SetActive(false);
         objectColor = UI_Image.GetComponent<Image>().color;
         FadeToBlackObject.SetActive(false);
-        EndgameText.SetActive(false);
+        //EndgameText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -53,6 +53,7 @@ public class LastDayPhoneInteraction : MonoBehaviour
             if (UI_Image.GetComponent<Image>().color.a >= 1)
             {
                 EndgameText.SetActive(true);
+                //EndgameText.GetComponent<EndGameText>().bFadingIn = true;
             }
         }
     }
