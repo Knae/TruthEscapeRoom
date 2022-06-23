@@ -21,9 +21,9 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bRoomEventExecuted = false;
 
 	[Header("Time Variables")]
-	[SerializeField] static public float beginningHour = 9.0f;
-	[SerializeField] static public float beginningMinute = 30.0f;
-	[SerializeField] static public float hourForWork = 11.0f;
+	[SerializeField] static public float beginningHour = 7.0f;
+	[SerializeField] static public float beginningMinute = 15.0f;
+	[SerializeField] static public float hourForWork = 8.0f;
 	[SerializeField] static public float day;
 	[SerializeField] static private float realSecondsToIngameDay = 720f; // 12 minutes for 24 hours, two full rotation
 

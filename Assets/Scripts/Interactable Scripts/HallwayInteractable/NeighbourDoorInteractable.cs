@@ -55,6 +55,11 @@ public class NeighbourDoorInteractable : MonoBehaviour
                         SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Knock);
                         soundPlayed = true;
                     }
+
+                    if (StaticVariables.iDay > 1 && StaticVariables.iNeighbourInteractions < 3)
+                    {
+                        StaticVariables.bInteractingWithObject = true; // stop player movement earlier
+                    }
                 }
 
                 if (Input.GetKeyUp(KeyCode.E)) // Forces isInteraction bool to false when key released, so interact animation runs once
@@ -88,6 +93,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
             Interaction.SetActive(false); // Turn on neighbour interaction
             Lighting2DObject.SetActive(true); // Turn on centre lighting
             StaticVariables.bInteractingWithNeighbour = false; // Set static variable bool to false
+            StaticVariables.bInteractingWithObject = false;
 
             if (bCounterIncreased == false)
             {

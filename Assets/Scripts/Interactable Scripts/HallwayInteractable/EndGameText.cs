@@ -97,11 +97,11 @@ public class EndGameText : MonoBehaviour
         {
             m_TextComponent.SetText("Less than half of domestic violence cases get reported");
         }
-        else if (iTextNumber == 4)
-        {
-            m_TextComponent.SetText("If you suspect domestic violence, you can report this to police, or to one of the many organisations.");
-        }
-        else if (iTextNumber >= 5)
+        //else if (iTextNumber == 4)
+        //{
+        //    m_TextComponent.SetText("If you suspect domestic violence, you can report this to police, or to one of the many organisations.");
+        //}
+        else if (iTextNumber >= 4)
         {
             Debug.Log("Game Complete");
             UI_Text.transform.position = new Vector3(EndTextPosition.transform.position.x, EndTextPosition.transform.position.y, 0.0f);

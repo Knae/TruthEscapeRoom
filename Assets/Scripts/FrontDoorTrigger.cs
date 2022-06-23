@@ -6,6 +6,10 @@ public class FrontDoorTrigger : MonoBehaviour
 {
 
     bool bIsTriggering = false;
+    bool bTriggered = false;
+    bool bPlayerMoving = true;
+
+    public GameObject dialogueObject;
 
     // Start is called before the first frame update
     void Start()
@@ -25,22 +29,41 @@ public class FrontDoorTrigger : MonoBehaviour
 
         if (StaticVariables.bNeighbourInteractPlayerFrontDoor == true)
         {
+            bPlayerMoving = false;
+            StaticVariables.bInteractingWithObject = true;
             //call confrontation dialogue function
             GameObject dialogueManager = GameObject.Find("ConfrontationDialogueManager");
             dialogueManager.GetComponent<DialogueFileReader>().SetConfrontationDialogue();
+            StaticVariables.bNeighbourInteractPlayerFrontDoor = false;
+            bIsTriggering = false;
+
         }
 
-    }
+        if (bPlayerMoving == false)
+        {
+            if (dialogueObject.activeInHierarchy == true)
+            {
+                StaticVariables.bInteractingWithObject = true;
+            }
+            else
+            {
+                StaticVariables.bInteractingWithObject = false;
+            }
+        }
 
+
+    }
 
     void OnTriggerEnter2D(Collider2D trigger)
     {
-        if (trigger.gameObject.tag == "Player") // Check that it is player and day is at least 6
+        if (trigger.gameObject.tag == "Player" && bTriggered == false) // Check that it is player and day is at least 6
         {
             Debug.Log("Player entered trigger area for front door");
             bIsTriggering = true;
+            bTriggered = true;
         }
     }
+
 
     void OnTriggerExit2D(Collider2D trigger)
     {
