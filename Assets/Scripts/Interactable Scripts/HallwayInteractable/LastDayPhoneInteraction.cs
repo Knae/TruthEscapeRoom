@@ -73,4 +73,10 @@ public class LastDayPhoneInteraction : MonoBehaviour
         bFading = true; // turn on fading
         FadeToBlackObject.SetActive(true);
     }
+
+    // Phone ring
+    public void PhoneRingButton()
+    {
+        // Add sound here
+    }
 }

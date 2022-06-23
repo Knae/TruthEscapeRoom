@@ -48,7 +48,6 @@ public class EndGameText : MonoBehaviour
 
             if (m_TextComponent.color.a >= 1)
             {
-                //Debug.Log("TEST");
                 fTextTimer = fTextTimer - 1 * Time.deltaTime;
                 if (fTextTimer <= 0)
                 {

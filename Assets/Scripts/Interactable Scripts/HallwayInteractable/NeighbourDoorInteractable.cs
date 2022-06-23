@@ -63,7 +63,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
             }
 
             // -- Start Neighbour Interaction --
-            if (StaticVariables.iDay > 1 && bTimerComplete == true) // Can only interact with neighbour from day 2, & waits for timer to end so shows interact animation
+            if (StaticVariables.iDay > 1 && bTimerComplete == true && StaticVariables.iNeighbourInteractions < 3) // Can only interact with neighbour from day 2, & waits for timer to end so shows interact animation
             {
                 bInteracting = true; // To stop interacting multiple times
                 StaticVariables.bInteractingWithNeighbour = true; // Bool used to stop player movement
@@ -84,7 +84,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
             }
         }
 
-        Debug.Log(StaticVariables.iNeighbourInteractions);
+        Debug.Log("# of player interactions with neighbour: " + StaticVariables.iNeighbourInteractions);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

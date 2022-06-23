@@ -17,7 +17,7 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bNeighbourInteractionComplete = false; // Flip this to true to make the neighbour interaction complete for that day
 	[SerializeField] static public bool bInteractingWithNeighbour = false; // If true, stops player movement
 	[SerializeField] static public bool bInteractingWithObject = false; // If true, stops player movement
-
+	[SerializeField] static public bool bNeighbourInteractPlayerFrontDoor = false; // If true, then neighbour interacts with player front door
 
 	[Header("Time Variables")]
 	[SerializeField] static public float beginningHour = 9.0f;
