@@ -22,6 +22,14 @@ public class SoundManager : MonoBehaviour
     public AudioClip Bed;
     public AudioClip Stove;
     public AudioClip Door;
+    public AudioClip Knock;
+    public AudioClip Bang1;
+    public AudioClip Bang2;
+    public AudioClip Thump;
+    public AudioClip Crash;
+    public AudioClip Yell1;
+    public AudioClip Yell2;
+    public AudioClip Phone;
     public static SoundManager instance;
 
     private void Awake()
