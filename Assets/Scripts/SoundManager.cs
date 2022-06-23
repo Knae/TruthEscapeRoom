@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource Sound;
     public AudioSource Music;
     public AudioSource AlarmSoundManager;
+    public AudioSource PhoneSoundManager;
 
     [Header("Audio Clips")]
     public AudioClip Click;
@@ -22,6 +23,14 @@ public class SoundManager : MonoBehaviour
     public AudioClip Bed;
     public AudioClip Stove;
     public AudioClip Door;
+    public AudioClip Knock;
+    public AudioClip Bang;
+    public AudioClip Bang2;
+    public AudioClip Thump;
+    public AudioClip Yell;
+    public AudioClip Yell2;
+    public AudioClip Crash;
+    public AudioClip Phone;
     public static SoundManager instance;
 
     private void Awake()
@@ -48,6 +57,7 @@ public class SoundManager : MonoBehaviour
     {
         Sound.volume = PlayerPrefs.GetFloat("SoundVolume");
         AlarmSoundManager.volume = PlayerPrefs.GetFloat("SoundVolume");
+        PhoneSoundManager.volume = PlayerPrefs.GetFloat("SoundVolume");
         Music.volume = PlayerPrefs.GetFloat("MusicVolume");
     }
 }
