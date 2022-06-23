@@ -21,6 +21,9 @@ public class FrontDoorTrigger : MonoBehaviour
             StaticVariables.iDay == 5)
         {
             StaticVariables.bNeighbourInteractPlayerFrontDoor = true;
+            //call confrontation dialogue function
+            GameObject dialogueManager = GameObject.Find("ConfrontationDialogueManager");
+            dialogueManager.GetComponent<DialogueFileReader>().SetConfrontationDialogue();
         }
 
         if (StaticVariables.bNeighbourInteractPlayerFrontDoor == true)

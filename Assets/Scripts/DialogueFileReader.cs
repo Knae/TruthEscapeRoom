@@ -88,13 +88,16 @@ public class DialogueFileReader : MonoBehaviour {
     void Start() {
         textDisplayBox.SetActive(true);
 
-        //SetNeighbourNextDoorSoundsStart();
-
         if (isNeighbourDialouge) { //if neighbour dialogue automate file loading according to day
-            string sectionNum = StaticVariables.iNeighbourInteractions.ToString();
-            string fileName = "Section" + sectionNum + ".txt"; //create filename of text matching current day
+            if (StaticVariables.iNeighbourInteractions < 3) {
+                string sectionNum = StaticVariables.iNeighbourInteractions.ToString();
+                string fileName = "Section" + sectionNum + ".txt"; //create filename of text matching current day
 
-            InitialiseDialogue(fileName);
+                InitialiseDialogue(fileName);
+            }
+            else {
+                stopDialogue = true;
+            }
         }
         else if (!isNeighbourNextDoorSounds) {
             InitialiseDialogue(dialogueFileName);
@@ -322,5 +325,11 @@ public class DialogueFileReader : MonoBehaviour {
             stopDialogue = false;
             textDisplayBox.SetActive(true);
         }
+    }
+
+    public void SetConfrontationDialogue() {
+        //set dialogue to start
+        stopDialogue = false;
+        textDisplayBox.SetActive(true);
     }
 }
