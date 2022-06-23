@@ -51,15 +51,20 @@ public class PlayerInteractMK2 : MonoBehaviour
 	{
         if (collision.gameObject.CompareTag("Interactable"))
         {
-            if (collision.gameObject.GetComponent<Interactable>() != null)
+            rNearbyInteractables = collision.gameObject.GetComponent<Interactable>();
+            if (rNearbyInteractables != null && !rNearbyInteractables.GetIfPromptDisplayed())
             {
-                rNearbyInteractables = collision.gameObject.GetComponent<Interactable>();
+
                 rNearbyInteractables.DisplayEPrompt();
             }
-            else
+            else if(rNearbyInteractables == null)
+            {
+                Debug.LogWarning("Nearby object does not have a interactable script");
+            }
+			else if (!rNearbyInteractables.GetIfPromptDisplayed())
 			{
-                Debug.LogWarning("Object tagged as interactable but does not have a interactable script");
-			}
+                Debug.LogWarning("Nearby object already has prompt displayed");
+            }
         }
     }
 
@@ -73,7 +78,8 @@ public class PlayerInteractMK2 : MonoBehaviour
 
 	private void OnCollisionExit2D(Collision2D collision)
 	{
-        if (collision.gameObject.GetComponent<Interactable>() != null && rNearbyInteractables!=null)
+        if (rNearbyInteractables != null && collision.gameObject.GetComponent<Interactable>() == rNearbyInteractables
+            && rNearbyInteractables.GetIfPromptDisplayed())
         {
             rNearbyInteractables.HidePrompt();
             rNearbyInteractables = null;

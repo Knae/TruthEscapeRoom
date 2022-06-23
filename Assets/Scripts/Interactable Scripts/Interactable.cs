@@ -34,7 +34,7 @@ public class Interactable : MonoBehaviour
 			}
 
 			//Move position of EPrompt to be above the object
-			v3Pos.y += (v2Size.y / 2) + 0.2f;
+			//v3Pos.y += (v2Size.y / 2) + 0.2f;
 		}	 
 	}
 

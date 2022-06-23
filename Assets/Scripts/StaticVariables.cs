@@ -13,10 +13,11 @@ public class StaticVariables : MonoBehaviour
 	[SerializeField] static public bool bMadeBed = false;
 	[SerializeField] static public bool bAlarmOff = false;
 	[SerializeField] static public bool bComputerOn = false;
-	[SerializeField] static public int iNeighbourInteractions = 0; // Number of times player has interacted with neighbour (door)
+	[SerializeField] static public bool bRoomEventExecuted = false;
 	[SerializeField] static public bool bNeighbourInteractionComplete = false; // Flip this to true to make the neighbour interaction complete for that day
 	[SerializeField] static public bool bInteractingWithNeighbour = false; // If true, stops player movement
 	[SerializeField] static public bool bInteractingWithObject = false; // If true, stops player movement
+	[SerializeField] static public int iNeighbourInteractions = 0; // Number of times player has interacted with neighbour (door)
 
 
 	[Header("Time Variables")]
@@ -53,6 +54,7 @@ public class StaticVariables : MonoBehaviour
 
     static public void NextDay()
 	{
+		bRoomEventExecuted = false;
 		bHadBreakfast = false;
 		bMadeBed = false;
 		bAlarmOff = false;
