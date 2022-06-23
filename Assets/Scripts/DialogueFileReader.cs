@@ -88,13 +88,16 @@ public class DialogueFileReader : MonoBehaviour {
     void Start() {
         textDisplayBox.SetActive(true);
 
-        //SetNeighbourNextDoorSoundsStart();
-
         if (isNeighbourDialouge) { //if neighbour dialogue automate file loading according to day
-            string sectionNum = StaticVariables.iNeighbourInteractions.ToString();
-            string fileName = "Section" + sectionNum + ".txt"; //create filename of text matching current day
+            if (StaticVariables.iNeighbourInteractions < 3) {
+                string sectionNum = StaticVariables.iNeighbourInteractions.ToString();
+                string fileName = "Section" + sectionNum + ".txt"; //create filename of text matching current day
 
-            InitialiseDialogue(fileName);
+                InitialiseDialogue(fileName);
+            }
+            else {
+                stopDialogue = true;
+            }
         }
         else if (!isNeighbourNextDoorSounds) {
             InitialiseDialogue(dialogueFileName);
@@ -311,16 +314,53 @@ public class DialogueFileReader : MonoBehaviour {
         neighbourInteractSprite.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
+    IEnumerator DelaySound(AudioClip sound, float delayFloat = 1)
+    {
+        yield return new WaitForSeconds(delayFloat);
+
+        //play sound
+        SoundManager.instance.Sound.PlayOneShot(sound);
+    }
+
     public void SetNeighbourNextDoorSoundsStart() {
         if (StaticVariables.iDay > 1 && StaticVariables.iDay != 5) {
             //set text file for reading
             string sectionNum = StaticVariables.iDay.ToString();
             string fileName = "NeighbourSounds" + sectionNum + ".txt"; //create filename of text matching current day
             InitialiseDialogue(fileName);
-
+            if (StaticVariables.iDay == 2)
+            {
+                StartCoroutine(DelaySound(SoundManager.instance.Bang1, 0));
+                StartCoroutine(DelaySound(SoundManager.instance.Crash, 1.8f));
+            }
+            else if (StaticVariables.iDay == 3)
+            {
+                StartCoroutine(DelaySound(SoundManager.instance.Thump, 0));
+                StartCoroutine(DelaySound(SoundManager.instance.Thump, 1.7f));
+                StartCoroutine(DelaySound(SoundManager.instance.Bang2, 3.3f));
+                StartCoroutine(DelaySound(SoundManager.instance.Yell2, 4));
+            }
+            else if (StaticVariables.iDay == 4)
+            {
+                StartCoroutine(DelaySound(SoundManager.instance.Crash, 0));
+                StartCoroutine(DelaySound(SoundManager.instance.Yell1, 1.8f));
+            }
+            else if (StaticVariables.iDay == 6)
+            {
+                StartCoroutine(DelaySound(SoundManager.instance.Yell2, 0));
+                StartCoroutine(DelaySound(SoundManager.instance.Crash, 1.5f));
+                StartCoroutine(DelaySound(SoundManager.instance.Thump, 3.5f));
+                StartCoroutine(DelaySound(SoundManager.instance.Bang2, 4.6f));
+            }
             //set dialogue to start
             stopDialogue = false;
             textDisplayBox.SetActive(true);
         }
+    }
+
+    public void SetConfrontationDialogue() {
+        //set dialogue to start
+        stopDialogue = false;
+        textDisplayBox.SetActive(true);
     }
 }

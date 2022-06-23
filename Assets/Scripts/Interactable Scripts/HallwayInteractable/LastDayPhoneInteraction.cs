@@ -20,6 +20,8 @@ public class LastDayPhoneInteraction : MonoBehaviour
 
     public GameObject EndgameText;
 
+    private bool soundPlayed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,5 +74,15 @@ public class LastDayPhoneInteraction : MonoBehaviour
     {
         bFading = true; // turn on fading
         FadeToBlackObject.SetActive(true);
+    }
+
+    // Phone ring
+    public void PhoneRingButton()
+    {
+        if (soundPlayed == false)
+        {
+            SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Phone);
+            soundPlayed = true;
+        }
     }
 }
