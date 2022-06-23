@@ -36,6 +36,10 @@ public class StoveInteractMK2 : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                //call function for neighbour sound text to play from dialogue manager
+                GameObject dialogueManager = GameObject.Find("NeighbourSoundsDialogue");
+                dialogueManager.GetComponent<DialogueFileReader>().SetNeighbourNextDoorSoundsStart();
+
                 ETextDisplay.SetActive(false);
                 StaticVariables.bHadBreakfast = true;
                 bPlayerMoving = false;
