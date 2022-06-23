@@ -72,4 +72,26 @@ public class StaticVariables : MonoBehaviour
 		// Reset Day start time on new day
 		day = (beginningHour + (beginningMinute / 60f)) / 12f;
 	}
+
+	static public void ResetStaticVariables()
+    {
+		iDay = 1;
+		bHasBathed = false;
+		bHadBreakfast = false;
+		bMadeBed = false;
+		bAlarmOff = false;
+		bComputerOn = false;
+		iNeighbourInteractions = 0; // Number of times player has interacted with neighbour (door)
+		bNeighbourInteractionComplete = false; // Flip this to true to make the neighbour interaction complete for that day
+		bInteractingWithNeighbour = false; // If true, stops player movement
+		bInteractingWithObject = false; // If true, stops player movement
+		bNeighbourInteractPlayerFrontDoor = false; // If true, then neighbour interacts with player front door
+		bRoomEventExecuted = false;
+
+		beginningHour = 7.0f;
+		beginningMinute = 15.0f;
+		hourForWork = 8.0f;
+		day = (beginningHour + (beginningMinute / 60f)) / 12f;
+		realSecondsToIngameDay = 720f; // 12 minutes for 24 hours, two full rotation
+	}
 }
