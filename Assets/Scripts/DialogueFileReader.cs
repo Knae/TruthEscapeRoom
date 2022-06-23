@@ -66,6 +66,9 @@ public class DialogueFileReader : MonoBehaviour {
     //if the dialogue is from the neighbour or not
     public bool isNeighbourDialouge;
 
+    //if dialogue is for sounds from next-door/neighbour
+    public bool isNeighbourNextDoorSounds;
+
     //filename for any other dialogue if not neighbour dialogue
     public string dialogueFileName;
 
@@ -85,13 +88,15 @@ public class DialogueFileReader : MonoBehaviour {
     void Start() {
         textDisplayBox.SetActive(true);
 
+        //SetNeighbourNextDoorSoundsStart();
+
         if (isNeighbourDialouge) { //if neighbour dialogue automate file loading according to day
             string sectionNum = StaticVariables.iNeighbourInteractions.ToString();
             string fileName = "Section" + sectionNum + ".txt"; //create filename of text matching current day
 
             InitialiseDialogue(fileName);
         }
-        else {
+        else if (!isNeighbourNextDoorSounds) {
             InitialiseDialogue(dialogueFileName);
         }
 
@@ -105,6 +110,7 @@ public class DialogueFileReader : MonoBehaviour {
                 PlayerInputTextUpdate();
             }
             else {
+                print("going going goung");
                 AutoTextUpdate(autoDelayTime);
             }
         }
@@ -303,5 +309,18 @@ public class DialogueFileReader : MonoBehaviour {
 
         //set sprite
         neighbourInteractSprite.GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
+    public void SetNeighbourNextDoorSoundsStart() {
+        if (StaticVariables.iDay > 1 && StaticVariables.iDay != 5) {
+            //set text file for reading
+            string sectionNum = StaticVariables.iDay.ToString();
+            string fileName = "NeighbourSounds" + sectionNum + ".txt"; //create filename of text matching current day
+            InitialiseDialogue(fileName);
+
+            //set dialogue to start
+            stopDialogue = false;
+            textDisplayBox.SetActive(true);
+        }
     }
 }
