@@ -103,6 +103,11 @@ public class DialogueFileReader : MonoBehaviour {
             InitialiseDialogue(dialogueFileName);
         }
 
+        if(currentSectionedDialogue == null)
+		{
+            currentSectionedDialogue = new string[100];
+		}
+
         //stores the original position of the text box to reset after shaking
         originalTextDisplayBoxPos = textDisplayBox.transform.position;
     }
