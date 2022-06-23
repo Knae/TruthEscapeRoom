@@ -20,9 +20,7 @@ public class NeighbourDoorInteractable : MonoBehaviour
     public float fMaxTime = 3.0f;
     [SerializeField] private bool bTimerStarted = false;
     [SerializeField] private bool bTimerComplete = false;
-    [SerializeField] private float fTimer = 0.0f;
-
-    private bool soundPlayed = false;
+    [SerializeField] private float fTimer = 0.0f; 
 
     // Start is called before the first frame update
     void Start()
@@ -45,11 +43,6 @@ public class NeighbourDoorInteractable : MonoBehaviour
                     bTimerStarted = true;
                     EPrompt.SetActive(false);
                     animation.SetBool("isInteracting", true);
-                    if (soundPlayed == false)
-                    {
-                        SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Knock);
-                        soundPlayed = true;
-                    }
                 }
 
                 if (Input.GetKeyUp(KeyCode.E)) // Forces isInteraction bool to false when key released, so interact animation runs once

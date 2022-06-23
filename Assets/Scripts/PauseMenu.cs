@@ -63,7 +63,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         GameIsPaused = false;
         SoundManager.instance.AlarmSoundManager.Stop();
-        SoundManager.instance.PhoneSoundManager.Stop();
         SceneManager.LoadScene("Main Menu");
     }
 
