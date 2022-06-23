@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NeighbourDoorInteractable : MonoBehaviour
 {
@@ -20,11 +21,18 @@ public class NeighbourDoorInteractable : MonoBehaviour
     public float fMaxTime = 3.0f;
     [SerializeField] private bool bTimerStarted = false;
     [SerializeField] private bool bTimerComplete = false;
-    [SerializeField] private float fTimer = 0.0f; 
+    [SerializeField] private float fTimer = 0.0f;
 
+    public Slider soundSlider;
+    public Slider musicSlider;
+
+    private bool soundPlayed = false;
     // Start is called before the first frame update
     void Start()
     {
+        soundSlider.normalizedValue = PlayerPrefs.GetFloat("SoundVolume");
+        musicSlider.normalizedValue = PlayerPrefs.GetFloat("MusicVolume");
+        SoundManager.instance.RefreshVolume();
         EPrompt.SetActive(false); // Hide E notification on scene start
         Interaction.SetActive(false);  // Turn off interaction with neighbour gameobject on scene start
         animation = Player.GetComponent<Animator>(); // Get the attached animator
@@ -43,6 +51,11 @@ public class NeighbourDoorInteractable : MonoBehaviour
                     bTimerStarted = true;
                     EPrompt.SetActive(false);
                     animation.SetBool("isInteracting", true);
+                    if (soundPlayed == false)
+                    {
+                        SoundManager.instance.Sound.PlayOneShot(SoundManager.instance.Knock);
+                        soundPlayed = true;
+                    }
                 }
 
                 if (Input.GetKeyUp(KeyCode.E)) // Forces isInteraction bool to false when key released, so interact animation runs once
