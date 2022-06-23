@@ -19,7 +19,10 @@ public class PauseMenu : MonoBehaviour
         {
             if (GameIsPaused)
             {
-                Resume();
+                if (optionsMenu.activeSelf == false)
+                {
+                    Resume();
+                }
             }
             else
             {
